@@ -19,9 +19,19 @@ export class Puzzle {
     const d1 = this.map[x1][y1]
     const d2 = this.map[x2][y2]
 
+    if (!this.isAvailable(d1, d2)) {
+      return
+    }
+
     this.update(x1, y1, this.operation(d1, d2))
     this.update(x2, y2, 0)
   }
+
+  isAvailable(d1: number, d2: number) {
+    //return d1 === d2 || d1 === 0
+    return d1 + d2 <= 6
+  }
+
 
   operation(d1: number, d2: number) {
     const dAfter = d1 + d2

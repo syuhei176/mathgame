@@ -14,6 +14,8 @@ class Game extends Engine {
 
   async initialize() {
     this.puzzle = new Puzzle((x: number, y: number, d: number) => {
+      console.log(x, y, d)
+
       this.nodes[x][y].updateNumber(d)
     })
 
@@ -62,10 +64,22 @@ class Game extends Engine {
         this.addNumNode(i, j, 0)
       }
     }
-    this.addNumNode(0, 0, 2)
-    this.addNumNode(1, 0, 3)
-    this.addNumNode(0, 1, 1)
-    this.addNumNode(2, 2, 4)
+    this.addNumNode(0, 0, 1)
+    this.addNumNode(1, 0, 2)
+    this.addNumNode(2, 0, 1)
+    this.addNumNode(3, 0, 3)
+    this.addNumNode(0, 1, 3)
+    this.addNumNode(1, 1, 4)
+    this.addNumNode(2, 1, 0)
+    this.addNumNode(3, 1, 1)
+    this.addNumNode(0, 2, 0)
+    this.addNumNode(1, 2, 1)
+    this.addNumNode(2, 2, 2)
+    this.addNumNode(3, 2, 1)
+    this.addNumNode(0, 3, 1)
+    this.addNumNode(1, 3, 1)
+    this.addNumNode(2, 3, 1)
+    this.addNumNode(3, 3, 2)
 
     await Resources.ConnectionLeft.load()
     await Resources.ConnectionRight.load()
