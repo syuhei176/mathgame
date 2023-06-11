@@ -1,7 +1,7 @@
-Reversi game with Excalibur
+Puzzle game with Excalibur
 =====
 
-Play demo [here](https://syuhei176.github.io/reversi-game/).
+Play demo [here](https://syuhei176.github.io/mathgame/).
 
 * Game Engine: Excalibur
 * Language: TypeScript
