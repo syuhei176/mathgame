@@ -1,8 +1,8 @@
 import { ImageSource } from "excalibur"
-import connLeft from "./images/connleft.png"
-import connRight from "./images/connright.png"
-import connDown from "./images/connDown.png"
-import connUp from "./images/connUp.png"
+import connLeft from "./images/left.png"
+import connRight from "./images/right.png"
+import connDown from "./images/down.png"
+import connUp from "./images/up.png"
 
 let Resources = {
   ConnectionLeft: new ImageSource(connLeft),
