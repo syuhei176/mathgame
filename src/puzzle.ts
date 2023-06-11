@@ -32,6 +32,17 @@ export class Puzzle {
     return d1 + d2 <= 6
   }
 
+  isClear() {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        if (this.map[i][j] > 0 && this.map[i][j] < 6) {
+          return false
+        }
+      }
+    }
+
+    return true
+  }
 
   operation(d1: number, d2: number) {
     const dAfter = d1 + d2

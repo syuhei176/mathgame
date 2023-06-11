@@ -3,6 +3,7 @@ import { NumNode } from "./node";
 import { Resources } from "./resources";
 import { Connection } from "./connection";
 import { Puzzle } from "./puzzle";
+import { GameClear } from "./clear";
 
 class Game extends Engine {
   puzzle: Puzzle
@@ -14,13 +15,15 @@ class Game extends Engine {
 
   async initialize() {
     this.puzzle = new Puzzle((x: number, y: number, d: number) => {
-      console.log(x, y, d)
-
       this.nodes[x][y].updateNumber(d)
     })
 
     const handler = (x1: number, y1: number, x2: number, y2: number) => {
       this.puzzle.check(x1, y1, x2, y2)
+
+      if (this.puzzle.isClear()) {
+        this.add(new GameClear())
+      }
     }
 
     this.addConnection(0, 0, 1, 0, handler)
