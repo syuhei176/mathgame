@@ -2,8 +2,9 @@ import { Actor, Color, DisplayMode, Engine, Input, Loader } from "excalibur";
 import { NumNode } from "./node";
 import { Resources } from "./resources";
 import { Connection } from "./connection";
-import { Puzzle } from "./puzzle";
+import { Direction, Puzzle } from "./puzzle";
 import { GameClear } from "./clear";
+import { KeyEvent } from "excalibur/build/dist/Input/Keyboard";
 
 class Game extends Engine {
   puzzle: Puzzle
@@ -26,6 +27,7 @@ class Game extends Engine {
       }
     }
 
+    /*
     this.addConnection(0, 0, 1, 0, handler)
     this.addConnection(1, 0, 2, 0, handler)
     this.addConnection(2, 0, 3, 0, handler)
@@ -56,6 +58,7 @@ class Game extends Engine {
     this.addConnection(0, 3, 1, 3, handler)
     this.addConnection(1, 3, 2, 3, handler)
     this.addConnection(2, 3, 3, 3, handler)
+    */
 
     this.nodes[0] = []
     this.nodes[1] = []
@@ -89,6 +92,30 @@ class Game extends Engine {
     await Resources.ConnectionDown.load()
     await Resources.ConnectionUp.load()
 
+    this.input.keyboard.on("press", (evt: KeyEvent) => {
+      if (
+        evt.key === Input.Keys.W ||
+        evt.key === Input.Keys.Up
+      ) {
+        this.puzzle.move(Direction.UP)
+      } else if (
+        evt.key === Input.Keys.S ||
+        evt.key === Input.Keys.Down
+      ) {
+        this.puzzle.move(Direction.DOWN)
+      } else if (
+        evt.key === Input.Keys.D ||
+        evt.key === Input.Keys.Right
+      ) {
+        this.puzzle.move(Direction.RIGHT)
+      } else if (
+        evt.key === Input.Keys.A ||
+        evt.key === Input.Keys.Left
+      ) {
+        this.puzzle.move(Direction.LEFT)
+      }
+    })
+
     this.start()
   }
 
@@ -101,16 +128,6 @@ class Game extends Engine {
   addConnection(x1: number, y1: number, x2: number, y2: number, handler: (x1: number, y1: number, x2: number, y2: number) => void) {
     this.add(new Connection(x1, y1, x2, y2, handler))
     this.add(new Connection(x2, y2, x1, y1, handler))
-  }
-
-  public update(engine: Engine, delta: any) {
-    if (
-      engine.input.keyboard.wasPressed(Input.Keys.W) ||
-      engine.input.keyboard.wasPressed(Input.Keys.Up)
-    ) {
-      //
-    }
-
   }
 }
 

@@ -1,3 +1,10 @@
+export enum Direction {
+  UP,
+  DOWN,
+  RIGHT,
+  LEFT
+}
+
 type UpdateHandler = (x: number, y: number, d: number) => void
 
 export class Puzzle {
@@ -14,6 +21,66 @@ export class Puzzle {
       }
     }
   }
+
+  move(direction: Direction) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (direction === Direction.RIGHT) {
+          this.check(
+            2 - j + 1, i, 2 - j, i
+          )
+        } else if (direction === Direction.LEFT) {
+          this.check(
+            j, i, j + 1, i
+          )
+        } else if (direction === Direction.UP) {
+          this.check(
+            i, j, i, j + 1
+          )
+        } else if (direction === Direction.DOWN) {
+          this.check(
+            i, 2 - j + 1, i, 2 - j
+          )
+        }
+      }
+    }
+
+    this.putRandom()
+  }
+
+  putRandom() {
+    const numEmpty = this.getNumEmpty()
+    const max = Math.floor(Math.random() * numEmpty)
+    const newD = Math.floor(Math.random() * 5)
+    let n = 0
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this.map[i][j] === 0) {
+          if (n === max) {
+            this.update(i, j, newD)
+            return
+          }
+          n++
+        }
+      }
+    }
+  }
+
+  getNumEmpty() {
+    let result = 0
+
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (this.map[i][j] === 0) {
+          result++
+        }
+      }
+    }
+
+    return result
+  }
+
 
   check(x1: number, y1: number, x2: number, y2: number) {
     const d1 = this.map[x1][y1]
@@ -47,7 +114,7 @@ export class Puzzle {
   operation(d1: number, d2: number) {
     const dAfter = d1 + d2
 
-    if (dAfter <= 6) {
+    if (dAfter < 6) {
       return dAfter
     } else {
       return dAfter - 6
